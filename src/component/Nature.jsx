@@ -39,7 +39,7 @@ import { Link } from 'react-router-dom';
     const MyView = Mylist && Mylist.map(Mylist=>{
         return  <div className="col-xl-3 col-lg-4 col-md-6">
         <div className="gallery-item h-100">
-          <img src={Mylist.nature_image} className="img-fluid" alt=""/>
+          <img src={Mylist.nature_image} className="img-fluid" style={{ width: '486px', height: '364px' }} alt=""/>
           <div class="gallery-links d-flex align-items-center justify-content-center">
             <a href={Mylist.nature_image}  className="glightbox preview-link"><i className="bi bi-arrows-angle-expand"></i></a>
             
@@ -65,7 +65,7 @@ import { Link } from 'react-router-dom';
         <h2>Nature </h2>
         
 
-        <a className="cta-btn" href="contact.html">Available for hire</a>
+        <Link to={"/contact"} class="btn btn-success">Available for hire</Link>
 
       </div>  
     </div>

@@ -8,7 +8,7 @@ class RestClient  {
         }).catch(error=>{
             return null;
         });
-    }
+    };
 
     static PostRequest =(postUrl,postJson)=>{
         let config={

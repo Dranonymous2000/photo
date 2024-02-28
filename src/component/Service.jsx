@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import RestClient from '../RestAPI/RestClient';
 import AppUrl from '../RestAPI/AppUrl';
+import { Link } from 'react-router-dom';
 
 export class Service extends Component {
 
@@ -12,6 +13,10 @@ export class Service extends Component {
       service_type2:"...",
       service_type3:"...",
       service_type4:"...",
+      service_type1_desc: "...",
+      service_type2_desc: "...",
+      service_type3_desc: "...",
+      service_type4_desc: "...",
       myData : []
 
     }
@@ -21,10 +26,10 @@ componentDidMount() {
   RestClient.GetRequest(AppUrl.Service)
     .then((result) => {
       console.log(result); // Add this line to check the structure of the result
-      this.setState({ service_description: result[0]['service_description'], service_type1: result[0]['service_type1'], service_type2: result[0]['service_type2'], service_type3: result[0]['service_type3'], service_type4: result[0]['service_type4']});
+      this.setState({ service_description: result[0]['service_description'], service_type1: result[0]['service_type1'], service_type2: result[0]['service_type2'], service_type3: result[0]['service_type3'], service_type4: result[0]['service_type4'],service_type1_desc: result[0]['service_type1_desc'], service_type2_desc: result[0]['service_type2_desc'], service_type3_desc: result[0]['service_type3_desc'], service_type4_desc: result[0]['service_type4_desc']});
     })
     .catch((error) => {
-      this.setState({ service_description: "???", service_type1: "???", service_type2: "???", service_type3: "???", service_type4: "???"});
+      this.setState({ service_description: "???", service_type1: "???", service_type2: "???", service_type3: "???", service_type4: "???",service_type1_desc: "???", service_type2_desc: "???", service_type3_desc: "???", service_type4_desc: "???"});
     });
 
     RestClient.GetRequest(AppUrl.Price).then(result=>{
@@ -46,7 +51,7 @@ componentDidMount() {
     const MyView = Mylist && Mylist.map(Mylist=>{
         return    <div class="col-lg-6">
         <div class="pricing-item d-flex justify-content-between">
-          <h3>{Mylist.price_title}</h3>
+          <h3>{Mylist.price_amount}</h3>
           <h4>{Mylist.price_description}</h4>
         </div>
       </div>
@@ -85,7 +90,7 @@ componentDidMount() {
         <h2>Services</h2>
         <p>{this.state.service_description}</p>
 
-        <a class="cta-btn" href="contact.html">Available for hire</a>
+        <Link to={"/contact"} class="btn btn-success">Available for hire</Link>
 
       </div>
     </div>
@@ -102,7 +107,7 @@ componentDidMount() {
         <div class="service-item position-relative">
           <i class="bi bi-activity"></i>
           <h4><a href="" class="stretched-link">{this.state.service_type1}</a></h4>
-          <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+          <p>{this.state.service_type1_desc}</p>
           
         </div>
       </div>
@@ -111,14 +116,14 @@ componentDidMount() {
         <div class="service-item position-relative">
           <i class="bi bi-bounding-box-circles"></i>
           <h4><a href="" class="stretched-link">{this.state.service_type2}</a></h4>
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+          <p> {this.state.service_type2_desc}</p>
         </div>
       </div>
       <div class="col-xl-3 col-md-6 d-flex">
         <div class="service-item position-relative">
           <i class="bi bi-calendar4-week"></i>
           <h4><a href="" class="stretched-link">{this.state.service_type3}</a></h4>
-          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+          <p> {this.state.service_type3_desc}</p>
         </div>
       </div>
 
@@ -126,7 +131,7 @@ componentDidMount() {
         <div class="service-item position-relative">
           <i class="bi bi-broadcast"></i>
           <h4><a href="" class="stretched-link">{this.state.service_type4}</a></h4>
-          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+          <p> {this.state.service_type4_desc}</p>
         </div>
       </div>
 

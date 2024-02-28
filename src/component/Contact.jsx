@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import RestClient from '../RestAPI/RestClient'; 
 import AppUrl from '../RestAPI/AppUrl';
+import { Button } from 'react-bootstrap';
 
 
  class Contact extends Component {
@@ -11,6 +12,7 @@ import AppUrl from '../RestAPI/AppUrl';
         city:"...",
         email:"...",
         phone:"...",
+        about_intro:"...",
        
       
         
@@ -23,6 +25,7 @@ componentDidMount(){
           city:result[0]["city"],
           email:result[0]["email"],
           phone:result[0]["phone"],
+          about_intro:result[0]["about_intro"],
          
          
         
@@ -32,13 +35,18 @@ componentDidMount(){
 
 
   sendContact(){
+
+
     let contact_name= document.getElementById("contact_name").value;
-    let conrtact_email= document.getElementById("conrtact_email").value;
+    let contact_email= document.getElementById("contact_email").value;
     let contact_subject= document.getElementById("contact_subject").value;
     let contact_message= document.getElementById("contact_message").value;
+   
 
-    let jsonObject = {contact_name:contact_name,conrtact_email:conrtact_email,contact_subject:contact_subject,contact_message:contact_message}
+    let jsonObject = {contact_name:contact_name,contact_email:contact_email,contact_subject:contact_subject,contact_message:contact_message}
+      
     RestClient.PostRequest(AppUrl.Contact,JSON.stringify(jsonObject)
+
     ).then(result=>{
      alert(result);
     }).catch(error=>{
@@ -57,7 +65,7 @@ componentDidMount(){
     <div class="row d-flex justify-content-center">
       <div class="col-lg-6 text-center">
         <h2>Contact</h2>
-        <p>Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
+        <p>{this.state.about_intro}</p>
 
       </div>
     </div>
@@ -111,7 +119,7 @@ componentDidMount(){
               <input type="text" name="name" class="form-control" id="contact_name" placeholder="Your Name" required/>
             </div>
             <div class="col-md-6 form-group mt-3 mt-md-0">
-              <input type="email" class="form-control" name="email" id="conrtact_email" placeholder="Your Email" required/>
+              <input type="email" class="form-control" name="email" id="contact_email" placeholder="Your Email" required/>
             </div>
           </div>
           <div class="form-group mt-3">
@@ -121,7 +129,8 @@ componentDidMount(){
             <textarea class="form-control" name="message" rows="5" id='contact_message' placeholder="Message" required></textarea>
           </div>
           <div class="text-center">
-            <button onClick={this.sendContact} variant="primary">Send Message</button>
+            <Button onClick={this.sendContact} variant="primary">Send Message</Button>
+           
           </div>
         </form>
       </div>

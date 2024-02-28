@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AppUrl from '../RestAPI/AppUrl';
 import RestClient from '../RestAPI/RestClient';
+import { Link } from 'react-router-dom';
 
 export class Home extends Component {
 
@@ -9,9 +10,13 @@ export class Home extends Component {
     this.state={
       Home_title:"...",
       Home_desc:"...",
+      nature_image: "...",
+       
     }
 
   }
+
+  
 componentDidMount() {
   RestClient.GetRequest(AppUrl.HomeTopTitle)
     .then((result) => {
@@ -21,191 +26,214 @@ componentDidMount() {
     .catch((error) => {
       this.setState({ Home_title: "???", Home_desc: "???" });
     });
+
+
+    RestClient.GetRequest(AppUrl.Naturehome)
+      .then((result) => {
+        this.setState({ nature_images: result });
+      })
+      .catch((error) => {
+        this.setState({ nature_images: [] });
+      });
+
+    RestClient.GetRequest(AppUrl.Animalhome)
+      .then((result) => {
+        this.setState({ animal_images: result });
+      })
+      .catch((error) => {
+        this.setState({ animal_images: [] });
+      });
+
+    RestClient.GetRequest(AppUrl.Architecturehome)
+      .then((result) => {
+        this.setState({ architecture_images: result });
+      })
+      .catch((error) => {
+        this.setState({ architecture_images: [] });
+      });
+
+    RestClient.GetRequest(AppUrl.Peoplehome)
+      .then((result) => {
+        this.setState({ people_images: result });
+      })
+      .catch((error) => {
+        this.setState({ people_images: [] });
+      });
+
+    RestClient.GetRequest(AppUrl.Sporthome)
+      .then((result) => {
+        console.log(result);
+        this.setState({ sports_images: result });
+      })
+      .catch((error) => {
+        this.setState({ sports_images: [] });
+      });
+
+    RestClient.GetRequest(AppUrl.Travelhome)
+      .then((result) => {
+        this.setState({ travel_images: result });
+      })
+      .catch((error) => {
+        this.setState({ travel_images: [] });
+      });
+
+    RestClient.GetRequest(AppUrl.Othershome)
+      .then((result) => {
+        this.setState({ others_images: result });
+      })
+      .catch((error) => {
+        this.setState({ others_images: [] });
+      });
+
+
+
+   
 }
 
 
 
 
 
+
   render() {
+
+  
+
     return (
       <div>
 
 
-<section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-6 text-center">
-          <h2>{this.state.Home_title}</h2>
-          <p>{this.state.Home_desc}</p>
-          <a href="contact.html" class="btn-get-started">Available for hire</a>
-        </div>
-      </div>
-    </div>
-  </section>
+        <section id="hero" class="hero d-flex flex-column justify-content-center align-items-center" data-aos="fade" data-aos-delay="1500">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                  <h2>{this.state.Home_title}</h2>
+                  <p>{this.state.Home_desc}</p>
+                  <Link to={"/contact"} class="btn btn-success">Available for hire</Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        
+        
+         
+          <main id="main" data-aos="fade" data-aos-delay="1500">
+        
+        
+          <section id="gallery" className="gallery">
 
 
- 
-  <main id="main" data-aos="fade" data-aos-delay="1500">
-
-
-    <section id="gallery" class="gallery">
-      <div class="container-fluid">
-
-        <div class="row gy-4 justify-content-center">
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-1.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-1.jpg" title="Gallery 1" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
+          <div className="container-fluid">
+          <div className="row gy-4 justify-content-center">
+            {this.state.sports_images && this.state.sports_images.map((image, index) => (
+              <div key={index} className="col-xl-3 col-lg-4 col-md-6">  
+                <div className="gallery-item h-100 mt-4">
+                <Link to={'/sport'} className="details-link">
+                  <img src={image} className="img-fluid" style={{ width: '486px', height: '364px' }} alt={`Nature Image ${index + 1}`} />
+                </Link>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-2.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-2.jpg" title="Gallery 2" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-3.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-3.jpg" title="Gallery 3" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-4.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-4.jpg" title="Gallery 4" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-5.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-5.jpg" title="Gallery 5" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-6.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-6.jpg" title="Gallery 6" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-7.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-7.jpg" title="Gallery 7" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-8.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-8.jpg" title="Gallery 8" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-9.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-9.jpg" title="Gallery 9" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-10.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-10.jpg" title="Gallery 10" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-11.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-11.jpg" title="Gallery 11" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-12.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-12.jpg" title="Gallery 12" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-13.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-13.jpg" title="Gallery 13" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-14.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-14.jpg" title="Gallery 14" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-15.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-15.jpg" title="Gallery 15" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-lg-4 col-md-6">
-            <div class="gallery-item h-100">
-              <img src="assets/img/gallery/gallery-16.jpg" class="img-fluid" alt=""/>
-              <div class="gallery-links d-flex align-items-center justify-content-center">
-                <a href="assets/img/gallery/gallery-16.jpg" title="Gallery 16" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
-                <a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>
-              </div>
-            </div>
-          </div>
-
         </div>
 
-      </div>
-    </section>
 
-  </main>
 
-      </div>
+
+
+
+        <div className="container-fluid">
+          <div className="row gy-4 justify-content-center">
+            {this.state.nature_images && this.state.nature_images.map((image, index) => (
+              <div key={index} className="col-xl-3 col-lg-4 col-md-6">
+                 
+                <div className="gallery-item h-100 mt-4">
+                {/* <a href={image}  class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>
+                <a href={"/nature"}  class="details-link"><i class="bi bi-link-45deg"></i></a> */}
+                <Link to={'/nature'} className="details-link">
+                  <img src={image} className="img-fluid" style={{ width: '486px', height: '364px' }} alt={`Nature Image ${index + 1}`} />
+                </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="container-fluid">
+          <div className="row gy-4 justify-content-center">
+            {this.state.animal_images && this.state.animal_images.map((image, index) => (
+              <div key={index} className="col-xl-3 col-lg-4 col-md-6">
+                <div className="gallery-item h-100 mt-4">
+                  <Link to={'/animal'} className="details-link">
+                  <img src={image} className="img-fluid" style={{ width: '486px', height: '364px' }} alt={`Animal Image ${index + 1}`} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+    
+
+         <div className="container-fluid">
+          <div className="row gy-4 justify-content-center">
+            {this.state.travel_images && this.state.travel_images.map((image, index) => (
+              <div key={index} className="col-xl-3 col-lg-4 col-md-6">
+                <div className="gallery-item h-100 mt-4">
+                  <Link to={'/travel'} className="details-link">
+                  <img src={image} className="img-fluid" style={{ width: '486px', height: '364px' }} alt={`Travel Image ${index + 1}`} />
+                  
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+    
+
+        <div className="container-fluid">
+          <div className="row gy-4 justify-content-center">
+            {this.state.people_images && this.state.people_images.map((image, index) => (
+              <div key={index} className="col-xl-3 col-lg-4 col-md-6">
+                <div className="gallery-item h-100 mt-3">
+                    <Link to={'/people'} className="details-link">
+                  <img src={image} className="img-fluid" style={{ width: '486px', height: '364px' }} alt={`People Image ${index + 1}`} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="container-fluid">
+          <div className="row gy-4 justify-content-center">
+            {this.state.architecture_images && this.state.architecture_images.map((image, index) => (
+              <div key={index} className="col-xl-3 col-lg-4 col-md-6">
+                <div className="gallery-item h-100 mt-4">
+                  <Link to={'/architecture'} className="details-link">
+                  <img src={image} className="img-fluid" style={{ width: '486px', height: '364px' }} alt={`Architecture Image ${index + 1}`} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+       
+
+      
+       
+
+      
+              
+          
+      </section>
+
+        
+          </main>
+        
+              </div>
     )
   }
 }

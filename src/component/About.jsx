@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import RestClient from '../RestAPI/RestClient';
 import AppUrl from '../RestAPI/AppUrl';
+import { Link } from 'react-router-dom';
 
 export class About extends Component {
 
@@ -98,7 +99,7 @@ componentDidMount() {
         <h2>About</h2>
         <p> {this.state.about_description} </p>
 
-        <a class="cta-btn" href="contact.html">Available for hire</a>
+        <Link to={"/contact"} class="btn btn-success">Available for hire</Link>
 
       </div>
     </div>

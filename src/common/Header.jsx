@@ -16,6 +16,12 @@ import RestClient from '../RestAPI/RestClient';
 import AppUrl from '../RestAPI/AppUrl';
 import NatureDetails from '../component/NatureDetails';
 import AnimalDetails from '../component/AnimalDetails';
+import TravelDetails from '../component/TravelDetails';
+import ArchitectureDetails from '../component/ArchitectureDetails';
+import SportDetails from '../component/SportDetails';
+import PeopleDetails from '../component/PeopleDetails';
+import OthersDetails from '../component/OthersDetails';
+
 
 export class Header extends Component {
 
@@ -23,6 +29,7 @@ export class Header extends Component {
     super();
     this.state={
       web_name:"...",
+      twitter:"...",
       facebook:"...",
       instagram:"...",
       linkedin:"...",
@@ -34,10 +41,10 @@ componentDidMount() {
   RestClient.GetRequest(AppUrl.CommonPage)
     .then((result) => {
       console.log(result); // Add this line to check the structure of the result
-      this.setState({ web_name: result[0]['web_name'], facebook: result[0]['facebook'], instagram: result[0]['instagram'], linkedin: result[0]['linkedin'], copyright: result[0]['copyright']});
+      this.setState({ web_name: result[0]['web_name'], facebook: result[0]['facebook'], instagram: result[0]['instagram'], linkedin: result[0]['linkedin'], copyright: result[0]['copyright'], twitter: result[0]['twitter']});
     })
     .catch((error) => {
-      this.setState({ web_name: "???", facebook: "???", instagram: "???", linkedin: "???", copyright: "???"});
+      this.setState({ web_name: "???", facebook: "???", instagram: "???", linkedin: "???", copyright: "???", twitter: "???"});
     });
 }
 
@@ -52,12 +59,12 @@ componentDidMount() {
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center  me-auto me-lg-0">
+      <Link to="/" class="logo d-flex align-items-center  me-auto me-lg-0">
        
      <img src="assets/img/logo.png" alt=""/> 
         <i class="bi bi-camera"></i>
         <h1>{this.state.web_name}</h1>
-      </a>
+      </Link>
 
       <nav id="navbar" class="navbar">
         <ul>
@@ -67,7 +74,7 @@ componentDidMount() {
           <li>
           <Link to="/about">About</Link>
           </li>
-          <li class="dropdown"><Link to="/gallery">Gallery </Link>
+          <li class="dropdown"><Link>Gallery </Link>
             <ul>
               <li><Link to="/nature">Nature</Link></li>
               <li><Link to="/travel">Travel</Link></li>
@@ -88,7 +95,7 @@ componentDidMount() {
       </nav>
 
       <div class="header-social-links">
-        <a href="" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href={this.state.twitter} class="twitter"><i class="bi bi-twitter"></i></a>
         <a href={this.state.facebook} class="facebook"><i class="bi bi-facebook"></i></a>
         <a href={this.state.instagram} class="instagram"><i class="bi bi-instagram"></i></a>
         <a href={this.state.linkedin} class="linkedin"><i class="bi bi-linkedin"></i></a>
@@ -112,10 +119,14 @@ componentDidMount() {
             <Route path="/Travel" element={<Travel />} />
             <Route path="/others" element={<Others />} />
             <Route path="/nature" element={<Nature />} />
-         
-            <Route path="/animaldetails" element={<AnimalDetails/>} />  
-            
+            <Route path="/animaldetails/:id" element={<AnimalDetails/>} />  
             <Route path="/naturedetails/:id" element={<NatureDetails  />} />
+            <Route path="/traveldetails/:id" element={<TravelDetails  />} />
+            <Route path="/architecturedetails/:id" element={<ArchitectureDetails  />} />
+            <Route path="/sportdetails/:id" element={<SportDetails  />} />
+            <Route path="/peopledetails/:id" element={<PeopleDetails  />} />
+            <Route path="/othersdetails/:id" element={<OthersDetails  />} />
+            
            
             
             
